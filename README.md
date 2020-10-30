@@ -7,7 +7,7 @@
 * python == 3.7
 * numpy >= 1.13.3
 * scipy >= 1.0.0
-* python-openbabel >= 2.3.2
+* python-openbabel >= 2.3.2 NOT 3.x. Conda has 2.4
 * ChemAxon's Marvin >= 16.11.14
 * rdkit >= 2017.09.1
 * scikit-learn >= 0.19.1
@@ -16,6 +16,26 @@
 * sympy >= 1.1.1
 
 For more information regarding the methods, please refer to [our paper](https://www.cell.com/biophysj/fulltext/S0006-3495(18)30524-1) in Biophysical Journal.
+
+
+
+## Example
+
+See `examples.ipynb`
+
+```
+(custom_modelculekit) hcl@gl553vd:~/Documents/projects/protein/1/group-contribution$ python3
+Python 3.7.9 (default, Aug 31 2020, 12:42:55)
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from group_contribution import group_contribution
+>>> gc = group_contribution()
+Calculated 4848 dGr0s with 1250 compounds as training data
+>>> example_rxn_formula = ['2 CHB_16761 = CHB_15422 + CHB_16027', 'CHB_35418 = CHB_15361 + CHB_63153']
+>>> gc.calc_dGr(example_rxn_formula, pH = 7, IS = 0.25, T = 310.15)
+array([1495.47764989, 6634.43638407])
+```
+
 
 
 ## Installation on Ubuntu
