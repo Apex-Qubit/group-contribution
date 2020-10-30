@@ -23,7 +23,7 @@ class Molecule(object):
     @staticmethod
     def GetAllElements():
         return [Molecule._obElements.GetSymbol(i) for i in 
-                xrange(Molecule.GetNumberOfElements())]
+                range(Molecule.GetNumberOfElements())]
 
     @staticmethod
     def GetSymbol(atomic_num):
@@ -279,7 +279,7 @@ class Molecule(object):
         return self.obmol.NumAtoms()
 
     def GetAtoms(self):
-        return [self.obmol.GetAtom(i+1) for i in xrange(self.obmol.NumAtoms())]
+        return [self.obmol.GetAtom(i+1) for i in range(self.obmol.NumAtoms())]
     
     def FindSmarts(self, smarts):
         """
@@ -297,7 +297,7 @@ class Molecule(object):
         if Molecule._obSmarts.Match(self.obmol):
             match_list = Molecule._obSmarts.GetMapList()
             shift_left = lambda m: [(n - 1) for n in m]
-            return map(shift_left, match_list)
+            return list(map(shift_left, match_list))
         else:
             return []
 

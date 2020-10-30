@@ -2,7 +2,7 @@ from subprocess import Popen, PIPE
 import openbabel
 import logging
 import numpy as np
-import StringIO
+from io import StringIO
 import re, csv
 from rdkit import Chem
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
@@ -262,7 +262,7 @@ def Calculate_total_Steric_hindrance(molstring):
         molstring = inchi2smiles(molstring)
 
     molstring_with_explicit_Hs = Molconvert(molstring, ['smiles:H']).split('\n')[0]
-    steric_hindrance = sorted(map(float, RunCxcalc(molstring_with_explicit_Hs,['sterichindrance','-l','always']).split('\n')[1].split('\t')[1].split(';')))
+    steric_hindrance = list(sorted(map(float, RunCxcalc(molstring_with_explicit_Hs,['sterichindrance','-l','always']).split('\n')[1].split('\t')[1].split(';'))))
     return sum(steric_hindrance)
 
 def Find_pos_of_double_bond_O(molstring):
@@ -425,9 +425,9 @@ def Calculate_chemaxon_mol_properties(molstring):
             mol_property_vals[i] = '0'
             property_error_count += 1
     if property_error_count > 0:
-        print 'Problem calculating logp for %s, the molecular properties calculated might not be correct' %molstring
+        print('Problem calculating logp for %s, the molecular properties calculated might not be correct' %molstring)
 
-    mol_property_vals = map(float, mol_property_vals)
+    mol_property_vals = list(map(float, mol_property_vals))
     double_bond = float(molstring.count('=')); mol_property_vals.append(double_bond); mol_property_names.append('double_bond_count')
     triple_bond = float(molstring.count('#')); mol_property_vals.append(triple_bond); mol_property_names.append('triple_bond_count') 
     #print mol_property_names

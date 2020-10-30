@@ -144,13 +144,13 @@ class group_contribution(training_data):
         self.to_calc_S_mat_T = []; self.to_calc_ddGr = np.zeros(len(self.rxn2calc_dicts))
         for i, cur_rxn_dict in enumerate(self.rxn2calc_dicts):
             cur_rxn_stoich_list = [0.0] * len(self.training_species_ids)
-            for cid, stoich in cur_rxn_dict.iteritems():
+            for cid, stoich in cur_rxn_dict.items():
                 cur_pH7_sid = self.TECRDB_compounds_pH7_species_id_dict[cid]
                 if type(pH) == list:
                     try:
                         assert len(pH) == len(IS) == len(T) == len(rxn2calc)
                     except AssertionError:
-                        print 'Number of conditions should match with number of reactions!'
+                        print('Number of conditions should match with number of reactions!')
                     if metal_conc_dict == {}:
                         cur_cpd_ddGf = thermo_transform._ddGf_pH7_num(cid, pH[i], IS[i], T[i], {})
                     else:
@@ -201,7 +201,7 @@ class group_contribution(training_data):
         compound_species_info_dict = {}
         compound_pH7_sid_dict = {}
         for i, cur_compound_id in enumerate(compound_id_list):
-            print "Calculating pKas and protonation states for %s" % cur_compound_id
+            print("Calculating pKas and protonation states for %s" % cur_compound_id)
             cur_smiles_form = molstring_list[i]
             pKas, nHs, zs, pH7_species_pos, pH7_species_smiles = Get_pKas_Hs_zs_pH7smiles(cur_smiles_form)
             binding_constants = np.cumsum([0] + pKas)
@@ -223,7 +223,7 @@ class group_contribution(training_data):
             U, s, V_H = np.linalg.svd(A, full_matrices=True)
             V = V_H.T
             r = sum(abs(s) > eps)
-            inv_S = np.matrix(np.diag([1.0/s[i] for i in xrange(r)]))
+            inv_S = np.matrix(np.diag([1.0/s[i] for i in range(r)]))
             inv_A = V[:, :r] * inv_S * U[:, :r].T
             P_R   = np.dot(U[:, :r], U[:, :r].T)
             P_N   = np.eye(n) - P_R

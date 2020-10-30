@@ -88,7 +88,7 @@ class dSr_calculation(object):
             else:
                 #is reaction
                 cur_rxn_dict = cur_entry if type(cur_entry) == dict else thermo_data.parse_formula(cur_entry)
-                for cur_cid, stoich in cur_rxn_dict.iteritems():
+                for cur_cid, stoich in cur_rxn_dict.items():
                     cur_sid = self.compounds_pH7_species_id_dict[cur_cid]
                     #construct group matrix for the reaction
                     if cur_sid in sid2get_groups:
@@ -106,7 +106,7 @@ class dSr_calculation(object):
                         elif cur_sid in self.new_sid_properties_dict.keys():
                             cur_mol_properties = self.new_sid_properties_dict[cur_sid]
                         else:
-                            print "Calculating molecular properties for %s" % cur_cid
+                            print("Calculating molecular properties for %s" % cur_cid)
                             cur_mol_properties = Calculate_mol_properties(self.compounds_data_dict[cur_sid]['smiles_form'])
                             self.new_sid_properties_dict[cur_sid] = cur_mol_properties
                         dSf_property_mat[i] += stoich * np.array(cur_mol_properties)

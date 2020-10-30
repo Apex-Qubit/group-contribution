@@ -31,7 +31,7 @@ class TECRDB_compounds_data(object):
                 if not pd.isnull(row[data_entry]):
                     if data_entry == 'groups':
                         #convert the text form of groups to python list
-                        cur_sid_groups = map(float,row['groups'].strip('[').strip(']').split(','))
+                        cur_sid_groups = list(map(float,row['groups'].strip('[').strip(']').split(',')))
                         self.TECRDB_compounds_data_dict[cur_sid]['groups'] = cur_sid_groups
                     else:
                         try:

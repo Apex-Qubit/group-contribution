@@ -109,7 +109,7 @@ class training_data(object):
                        self.TECRDB_rxn_dSr_dict, cur_rid, metal_correction=self.metal_correction, T_correction=self.T_correction)
             training_dGr0s.append(cur_dGr0)
 
-            for compound_id, stoich in cur_rxn_dict.iteritems():
+            for compound_id, stoich in cur_rxn_dict.items():
                 cur_pH7_sid = self.TECRDB_compounds_pH7_species_id_dict[compound_id]
                 cur_sid_pos = self.training_species_ids.index(cur_pH7_sid)
                 cur_rxn_stoich_list[cur_sid_pos] = stoich
@@ -141,7 +141,7 @@ class training_data(object):
         
         self.training_S_mat_T = np.array(training_S_mat_T)
         self.training_dGr0s = np.array(training_dGr0s)
-        print "Calculated %d dGr0s with %d compounds as training data" %(self.training_S_mat_T.shape[0], self.training_S_mat_T.shape[1])
+        print("Calculated %d dGr0s with %d compounds as training data" %(self.training_S_mat_T.shape[0], self.training_S_mat_T.shape[1]))
         
     def get_training_data_and_matrix(self):
         self.get_training_data()

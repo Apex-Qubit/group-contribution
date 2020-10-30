@@ -47,7 +47,7 @@ class pK_optimization(training_data):
         :return: a dictionary with key being reaction id, value being equation for dGr0 of the reaction
         """
         dGr0_equations_dict = {}
-        print 'Writing %d dGr0 equations' %len(rid_list)
+        print('Writing %d dGr0 equations' %len(rid_list))
         for rid in rid_list:
             dGr0_equations_dict[rid] = self.thermo_transform._get_dGr0_sym(self.all_thermo_data_dict['dG_r'], \
                                        self.TECRDB_rxn_dSr_dict, rid, metal_correction=True)
@@ -66,7 +66,7 @@ class pK_optimization(training_data):
         """
         find the index from a symbol written as the variable, e.g. return 0 for x[0], 2 for x[2]
         """
-        indices = map(int, re.findall('(?<=x\[)([0-9]+)(?=\])',string))
+        indices = list(map(int, re.findall('(?<=x\[)([0-9]+)(?=\])',string)))
         return indices[0]
     
     @staticmethod
@@ -211,13 +211,13 @@ class pK_optimization(training_data):
         start_timer_approx = time()
         self.approx_results = self._minimizerApprox(self.candidates)
         end_timer_approx = time()
-        print 'Elapsed time %f seconds for approximate optimization' %round(end_timer_approx-start_timer_approx, 3)
+        print('Elapsed time %f seconds for approximate optimization' %round(end_timer_approx-start_timer_approx, 3))
         
         #Now run lma optimization
         start_timer_lma = time()
         self.leastsq_results = self._minimizerLMA(self.approx_results)
         end_timer_lma = time()
-        print 'Elapsed time %f seconds for LMA optimization' %round(end_timer_lma-start_timer_lma, 3)
+        print('Elapsed time %f seconds for LMA optimization' %round(end_timer_lma-start_timer_lma, 3))
         
         self.minimized_candidate = []
         for name in self.leastsq_results.params: 
@@ -230,7 +230,7 @@ class pK_optimization(training_data):
         :return: a dictionary with key being species id and value being optimized pK
         """
         optimized_sid_pK_dict = {}
-        for sid, pK_variable_info in self.thermo_transform.variable_vector_dict.iteritems():
+        for sid, pK_variable_info in self.thermo_transform.variable_vector_dict.items():
             pK_symbol = pK_variable_info[0]
             index = pK_optimization.extract_variable_index_from_string(str(pK_symbol))
             optimized_sid_pK_dict[sid] = self.minimized_candidate[index]

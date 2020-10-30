@@ -146,7 +146,7 @@ class thermodynamic_transformations(object):
             metal_conc_dict = {}
         dGr_prime = -R*T*np.log(Keq)
         ddGr = 0
-        for compound_id, stoich in rxn_dict.iteritems():        
+        for compound_id, stoich in rxn_dict.items():
             cur_ddGf = self._ddGf_pH7_num(compound_id, pH, IS, T, metal_conc_dict)
             ddGr += cur_ddGf * stoich
             
@@ -363,7 +363,7 @@ class thermodynamic_transformations(object):
             metal_conc_dict = {}
 
         ddGr = ''
-        for compound_id, stoich in rxn_dict.iteritems():
+        for compound_id, stoich in rxn_dict.items():
             cur_ddGf = self._ddGf_pH7_sym(compound_id, pH, IS, T, metal_conc_dict)
             ddGr += '(' + str(stoich) + ')' + '*' + '(' + cur_ddGf + ')' + '+'
         ddGr = ddGr[:-1] #remove + sign in the end

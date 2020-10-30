@@ -60,10 +60,10 @@ class thermo_data(object):
         right = tokens[1].strip()
 
         sparse_reaction = {}
-        for cid, count in thermo_data.parse_reaction_formula_side(left).iteritems():
+        for cid, count in thermo_data.parse_reaction_formula_side(left).items():
             sparse_reaction[cid] = sparse_reaction.get(cid, 0) - count 
 
-        for cid, count in thermo_data.parse_reaction_formula_side(right).iteritems():
+        for cid, count in thermo_data.parse_reaction_formula_side(right).items():
             sparse_reaction[cid] = sparse_reaction.get(cid, 0) + count 
 
         return sparse_reaction
